@@ -2,5 +2,4 @@ ultralytics
 opencv-python
 numpy
 pyinstaller
-tkinter
 pillow
