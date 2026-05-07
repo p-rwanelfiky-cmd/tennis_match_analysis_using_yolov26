@@ -9,7 +9,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5  # Updated to v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
           
       - name: Install dependencies
         run: |
@@ -18,12 +18,12 @@ jobs:
           
       - name: Build EXE
         run: |
-          # Use main_gui.py if that's your new file name!
+          
           # Added --add-data to ensure the model is inside the EXE
-          pyinstaller --onefile --windowed --collect-all ultralytics --add-data "yolo26n.pt;." main_gui.py
+          pyinstaller --onefile --windowed --collect-all ultralytics --add-data "yolo26n.pt;." main_gui_tennis.py
           
       - name: Upload Result
         uses: actions/upload-artifact@v4  # Updated to v4 to fix the error
         with:
           name: Tennis-Analysis-Windows
-          path: dist/main_gui.exe  # Must match the .py name used above
+          path: dist/main_gui_tennis.exe  # Must match the .py name used above
