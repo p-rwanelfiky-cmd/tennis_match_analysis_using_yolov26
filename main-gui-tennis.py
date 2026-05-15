@@ -4,6 +4,16 @@ from PIL import Image, ImageTk
 import cv2
 import numpy as np
 from ultralytics import YOLO
+import sys
+import os
+
+# 1. path function for exe file
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 # --- AUTOMATIC POLYGON & BUFFER ---
 def detect_court_polygon(first_frame):
@@ -53,8 +63,10 @@ def detect_court_polygon(first_frame):
 # --- THE CORE ANALYSIS FUNCTION ---
 def run_analysis(video_path, status_label):
     try:
-        # 1. Initialize with Medium Model for robust tracking
-        model = YOLO("yolo26n.pt") 
+        
+        # Use resource_path so the EXE knows where the file is
+        MODEL_PATH = resource_path('yolo26n.pt') 
+        model = YOLO(MODEL_PATH) 
         player_positions = []
         
         status_label.config(text="Status: Analyzing court geometry...", fg="purple")
