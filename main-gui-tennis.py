@@ -198,11 +198,16 @@ def show_report():
 
 # --- GUI SETUP ---
 def select_file():
-    file_path = filedialog.askopenfilename(filetypes=[("Video Files", "*.mp4 *.avi *.mov *.mkv")])
+    # This starts the file browser in the SAME folder as the EXE
+    initial_dir = os.getcwd() 
+    file_path = filedialog.askopenfilename(
+        initialdir=initial_dir,
+        filetypes=[("Video Files", "*.mp4 *.avi *.mov *.mkv")]
+    )
     if file_path:
-        file_label.config(text=f"File: {file_path.split('/')[-1]}")
+        file_label.config(text=f"File: {os.path.basename(file_path)}")
+        # Pass only the path to run_analysis
         start_btn.config(state=tk.NORMAL, command=lambda: run_analysis(file_path, status_label))
-
 root = tk.Tk()
 root.title("Zewail City - Tennis Analytics (AIE 501)")
 root.geometry("500x350")
